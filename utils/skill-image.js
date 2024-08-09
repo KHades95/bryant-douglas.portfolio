@@ -84,7 +84,7 @@ import net from '/public/svg/skills/net.svg';
 import digitalocean from '/public/svg/skills/digitalocean.svg';
 import express from '/public/svg/skills/express.svg';
 import nft from '/public/svg/skills/nft.svg';
-import laravel from '/public/svg/skills/Laravel.svg';
+import laravel from '/public/svg/skills/laravel.svg';
 
 
 
