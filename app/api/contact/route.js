@@ -1,37 +1,22 @@
-import axios from 'axios';
-import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 export async function POST(request) {
-  const payload = await request.json();
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chat_id = process.env.TELEGRAM_CHAT_ID;
-
-  if (!token || !chat_id) {
-    return NextResponse.json({
-      success: false,
-    }, { status: 200 });
-  };
+  console.log(request);
+  const { name, email, message } = JSON.parse(request);
 
   try {
-    const url = `https://api.telegram.org/bot${token}/sendMessage`;
-    const message = `New message from ${payload.name}\n\nEmail: ${payload.email}\n\nMessage:\n ${payload.message}\n\n`;
-
-    const res = await axios.post(url, {
-      text: message,
-      chat_id: process.env.TELEGRAM_CHAT_ID
+    const response = await resend.send({
+      from: `${name} <${email}>`,
+      to: email,
+      subject: `New message from ${name}`,
+      html: `<p>${message}</p>`,
     });
 
-    if (res.data.ok) {
-      return NextResponse.json({
-        success: true,
-        message: "Message sent successfully!",
-      }, { status: 200 });
-    };
+    res.status(200).json({ success: true, data: response });
   } catch (error) {
-    console.log(error.response.data)
-    return NextResponse.json({
-      message: "Message sending failed!",
-      success: false,
-    }, { status: 500 });
+    res.status(500).json({ success: false, error: error.message });
   }
 };

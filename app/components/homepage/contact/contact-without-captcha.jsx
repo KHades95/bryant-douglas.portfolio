@@ -5,9 +5,13 @@ import axios from 'axios';
 import { useState } from 'react';
 import { TbMailForward } from "react-icons/tb";
 import { toast } from 'react-toastify';
+import { Resend } from 'resend';
+
+const resend = new Resend('YOUR_RESEND_API_KEY');
 
 function ContactWithoutCaptcha() {
   const [error, setError] = useState({ email: false, required: false });
+  const [sending, setSending] = useState(false);
   const [userInput, setUserInput] = useState({
     name: '',
     email: '',
@@ -22,6 +26,8 @@ function ContactWithoutCaptcha() {
 
   const handleSendMail = async (e) => {
     e.preventDefault();
+
+    // Validator
     if (!userInput.email || !userInput.message || !userInput.name) {
       setError({ ...error, required: true });
       return;
@@ -30,26 +36,25 @@ function ContactWithoutCaptcha() {
     } else {
       setError({ ...error, required: false });
     };
-
-    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const options = { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY };
-
+    
     try {
-      const res = await emailjs.send(serviceID, templateID, userInput, options);
-      const teleRes = await axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, userInput);
-
-      if (res.status === 200 || teleRes.status === 200) {
-        toast.success('Message sent successfully!');
-        setUserInput({
-          name: '',
-          email: '',
-          message: '',
-        });
-      };
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInput),
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast.success('Email sent successfully!');
+      } else {
+        toast.error('Failed to send email.');
+      }
     } catch (error) {
-      toast.error(error?.text || error);
-    };
+      console.error('Error:', error);
+    }
+
   };
 
   return (
@@ -57,7 +62,7 @@ function ContactWithoutCaptcha() {
       <p className="font-medium mb-5 text-[#16f2b3] text-xl uppercase">
         Contact with me
       </p>
-      <div className="max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5">
+      <div className={ `max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5` + sending ? "disabled" : ""}>
         <p className="text-sm text-[#d3d8e8]">
           {"If you have any questions or concerns, please don't hesitate to contact me. I am open to any work opportunities that align with my skills and interests."}
         </p>

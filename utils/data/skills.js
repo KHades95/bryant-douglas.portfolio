@@ -16,7 +16,6 @@ export const skillsData = [
 'Java',
 'ASP',
 'C#',
-'Restful',
 'GraphQL',
 'PostgreSQL',
 'MySQL',
