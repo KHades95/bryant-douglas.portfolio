@@ -43,7 +43,8 @@ import memsql from '/public/svg/skills/memsql.svg';
 import microsoftoffice from '/public/svg/skills/microsoftoffice.svg';
 import mongoDB from '/public/svg/skills/mongoDB.svg';
 import mysql from '/public/svg/skills/mysql.svg';
-import nextJS from '/public/svg/skills/nextJS.svg';
+import nodejs from '/public/svg/skills/nodejs.svg';
+import next from '/public/svg/skills/nextJS.svg';
 import nginx from '/public/svg/skills/nginx.svg';
 import numpy from '/public/svg/skills/numpy.svg';
 import nuxtJS from '/public/svg/skills/nuxtJS.svg';
@@ -56,6 +57,7 @@ import premierepro from '/public/svg/skills/premierepro.svg';
 import python from '/public/svg/skills/python.svg';
 import pytorch from '/public/svg/skills/pytorch.svg';
 import react from '/public/svg/skills/react.svg';
+import react_native from '/public/svg/skills/react-native.svg';
 import ruby from '/public/svg/skills/ruby.svg';
 import selenium from '/public/svg/skills/selenium.svg';
 import sketch from '/public/svg/skills/sketch.svg';
@@ -72,6 +74,18 @@ import vuetifyjs from '/public/svg/skills/vuetifyjs.svg';
 import webix from '/public/svg/skills/webix.svg';
 import wolframalpha from '/public/svg/skills/wolframalpha.svg';
 import wordpress from '/public/svg/skills/wordpress.svg';
+import jest from '/public/svg/skills/jest.svg';
+import redux from '/public/svg/skills/redux.svg';
+import nest from '/public/svg/skills/nest.svg';
+import asp from '/public/svg/skills/asp.svg';
+import shopify from '/public/svg/skills/shopify.svg';
+import magento from '/public/svg/skills/magento.svg';
+import net from '/public/svg/skills/net.svg';
+import digitalocean from '/public/svg/skills/digitalocean.svg';
+import express from '/public/svg/skills/express.svg';
+import nft from '/public/svg/skills/nft.svg';
+
+
 
 
 export const skillsImage = (skill) => {
@@ -97,12 +111,18 @@ export const skillsImage = (skill) => {
       return angular;
     case 'javascript':
       return javascript;
+    case 'node':
+      return nodejs;
+    case 'jest':
+      return jest;
     case 'next js':
-      return nextJS;
+      return next;
     case 'nuxt js':
       return nuxtJS;
     case 'react':
       return react;
+    case 'react-native':
+      return react_native;
     case 'svelte':
       return svelte;
     case 'typescript':
@@ -225,7 +245,31 @@ export const skillsImage = (skill) => {
       return wolframalpha;
     case 'canva':
       return canva;
+    case 'redux':
+      return redux;
+    case 'digitalocean':
+      return digitalocean;
+    case 'next':
+      return next;
+    case 'nest':
+      return nest;
+    case 'asp':
+      return asp;
+    case 'cypress':
+      return cypress;
+    case 'ghost':
+      return ghost;
+    case 'shopify':
+      return shopify;
+    case 'magento':
+      return magento;
+    case 'net':
+      return net;
+    case 'express':
+      return express;
+    case 'nft':
+      return nft;
     default:
       break;
   }
-}
+};

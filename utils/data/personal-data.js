@@ -6,12 +6,12 @@ export const personalData = {
   email: 'proweb.master94@gmail.com',
   phone: '+5109854964',
   address: '21002 Foothill Pine San Antonio , TX 78259 United States',
-  github: 'https://github.com/devmax214',
-  facebook: 'https://www.facebook.com/abusaid.riyaz/',
-  linkedIn: 'https://www.linkedin.com/in/abu-said-bd/',
-  twitter: 'https://twitter.com/said7388',
-  stackOverflow: 'https://stackoverflow.com/users/16840768/abu-said',
-  leetcode: "https://leetcode.com/said3812/",
+  github: 'https://github.com/KHades95',
+  facebook: '',
+  linkedIn: '',
+  twitter: '',
+  stackOverflow: '',
+  leetcode: "",
   devUsername: "devmax214",
-  resume: "https://drive.google.com/file/d/1eyutpKFFhJ9X-qpQGKhUNnVRkB5Wer00/view?usp=sharing"
+  resume: "https://drive.google.com/file/d/1PzKkfqCnhBRqiFXcz6j9RXFOIjD9nTHX/view?usp=drive_link"
 }
