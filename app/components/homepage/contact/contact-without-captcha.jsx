@@ -26,7 +26,7 @@ function ContactWithoutCaptcha() {
 
   const handleSendMail = async (e) => {
     e.preventDefault();
-
+    setSending(true);
     // Validator
     if (!userInput.email || !userInput.message || !userInput.name) {
       setError({ ...error, required: true });
@@ -43,18 +43,22 @@ function ContactWithoutCaptcha() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userInput),
+        body: JSON.stringify(userInput)
       });
       const result = await response.json();
+      console.log(result);
       if (result.success) {
         toast.success('Email sent successfully!');
+        // userInput.name = "";
+        // userInput.email = "";
+        // userInput.message = "";
       } else {
         toast.error('Failed to send email.');
       }
     } catch (error) {
       console.error('Error:', error);
     }
-
+    setSending(false);
   };
 
   return (
