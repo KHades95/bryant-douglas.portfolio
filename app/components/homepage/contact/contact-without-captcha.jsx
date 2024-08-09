@@ -1,13 +1,9 @@
 "use client";
 // @flow strict
 import { isValidEmail } from '@/utils/check-email';
-import axios from 'axios';
 import { useState } from 'react';
 import { TbMailForward } from "react-icons/tb";
 import { toast } from 'react-toastify';
-import { Resend } from 'resend';
-
-const resend = new Resend('YOUR_RESEND_API_KEY');
 
 function ContactWithoutCaptcha() {
   const [error, setError] = useState({ email: false, required: false });
@@ -46,12 +42,11 @@ function ContactWithoutCaptcha() {
         body: JSON.stringify(userInput)
       });
       const result = await response.json();
-      console.log(result);
       if (result.success) {
         toast.success('Email sent successfully!');
-        // userInput.name = "";
-        // userInput.email = "";
-        // userInput.message = "";
+        userInput.name = "";
+        userInput.email = "";
+        userInput.message = "";
       } else {
         toast.error('Failed to send email.');
       }
@@ -66,7 +61,7 @@ function ContactWithoutCaptcha() {
       <p className="font-medium mb-5 text-[#16f2b3] text-xl uppercase">
         Contact with me
       </p>
-      <div className={ `max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5` + sending ? "disabled" : ""}>
+      <div className={ `max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5 ${sending ? "disabled" : ""}`}>
         <p className="text-sm text-[#d3d8e8]">
           {"If you have any questions or concerns, please don't hesitate to contact me. I am open to any work opportunities that align with my skills and interests."}
         </p>

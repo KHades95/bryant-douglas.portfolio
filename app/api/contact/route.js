@@ -5,17 +5,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 
 export async function POST(request) {
-  console.log(request);
   const body = await request.json();
-  console.log(body);
   const { name, email, message } = body;
-  console.log(name, email, message);
   try {
     const response = await resend.emails.send({
-      from: `${email}`,
-      to: "campbellstubblebine@gmail.com",
+      from: `hello@mail.roots.homes`,
+      to: "proweb.master94@gmail.com",
       subject: `New message from ${name}`,
-      html: `<p>${message}</p>`,
+      html: `<p>Hi This is ${name}</p><p>My Email address is ${email}</p><p>${message}</p>`,
     });
 
     return NextResponse.json({ success: true, data: response });
