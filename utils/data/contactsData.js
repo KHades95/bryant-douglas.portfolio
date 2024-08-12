@@ -1,6 +1,6 @@
 export const contactsData = {
     email: 'proweb.master94@gmail.com',
-    phone: '+5109854964',
+    phone: '+15109854964',
     address: '21002 Foothill Pine San Antonio , TX 78259 United States',
     github: 'https://github.com/KHades95',
     facebook: '',
