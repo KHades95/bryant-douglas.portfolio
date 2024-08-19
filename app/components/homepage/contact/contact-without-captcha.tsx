@@ -1,39 +1,31 @@
 "use client";
 // @flow strict
 import { isValidEmail } from '@/utils/check-email';
-import emailjs from '@emailjs/browser';
-import axios from 'axios';
 import { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { TbMailForward } from "react-icons/tb";
 import { toast } from 'react-toastify';
+import React from 'react';
 
-function ContactWithCaptcha() {
-  const [input, setInput] = useState({
+function ContactWithoutCaptcha() {
+  const [error, setError] = useState({ email: false, required: false });
+  const [sending, setSending] = useState(false);
+  const [userInput, setUserInput] = useState({
     name: '',
     email: '',
     message: '',
   });
-  const [captcha, setCaptcha] = useState(null);
-  const [error, setError] = useState({
-    email: false,
-    required: false,
-  });
 
   const checkRequired = () => {
-    if (input.email && input.message && input.name) {
+    if (userInput.email && userInput.message && userInput.name) {
       setError({ ...error, required: false });
     }
   };
 
-  const handleSendMail = async (e) => {
+  const handleSendMail = async (e : any) => {
     e.preventDefault();
-    if (!captcha) {
-      toast.error('Please complete the captcha!');
-      return;
-    };
-
-    if (!input.email || !input.message || !input.name) {
+    setSending(true);
+    // Validator
+    if (!userInput.email || !userInput.message || !userInput.name) {
       setError({ ...error, required: true });
       return;
     } else if (error.email) {
@@ -41,27 +33,28 @@ function ContactWithCaptcha() {
     } else {
       setError({ ...error, required: false });
     };
-
-    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const options = { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY };
-
+    
     try {
-      const res = await emailjs.send(serviceID, templateID, userInput, options);
-      const teleRes = await axios.post(`${process.env.NEXT_PUBLIC_APP_URL}/api/contact`, userInput);
-
-      if (res.status === 200 || teleRes.status === 200) {
-        toast.success('Message sent successfully!');
-        setUserInput({
-          name: '',
-          email: '',
-          message: '',
-        });
-        setCaptcha(null);
-      };
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInput)
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast.success('Email sent successfully!');
+        userInput.name = "";
+        userInput.email = "";
+        userInput.message = "";
+      } else {
+        toast.error('Failed to send email.');
+      }
     } catch (error) {
-      toast.error(error?.text || error);
-    };
+      console.error('Error:', error);
+    }
+    setSending(false);
   };
 
   return (
@@ -69,7 +62,7 @@ function ContactWithCaptcha() {
       <p className="font-medium mb-5 text-[#16f2b3] text-xl uppercase">
         Contact with me
       </p>
-      <div className="max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5">
+      <div className={ `max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5 ${sending ? "disabled" : ""}`}>
         <p className="text-sm text-[#d3d8e8]">
           {"If you have any questions or concerns, please don't hesitate to contact me. I am open to any work opportunities that align with my skills and interests."}
         </p>
@@ -79,11 +72,11 @@ function ContactWithCaptcha() {
             <input
               className="bg-[#10172d] w-full border rounded-md border-[#353a52] focus:border-[#16f2b3] ring-0 outline-0 transition-all duration-300 px-3 py-2"
               type="text"
-              maxLength="100"
+              maxLength={100}
               required={true}
-              onChange={(e) => setInput({ ...input, name: e.target.value })}
+              onChange={(e) => setUserInput({ ...userInput, name: e.target.value })}
               onBlur={checkRequired}
-              value={input.name}
+              value={userInput.name}
             />
           </div>
 
@@ -92,13 +85,13 @@ function ContactWithCaptcha() {
             <input
               className="bg-[#10172d] w-full border rounded-md border-[#353a52] focus:border-[#16f2b3] ring-0 outline-0 transition-all duration-300 px-3 py-2"
               type="email"
-              maxLength="100"
+              maxLength={100}
               required={true}
-              value={input.email}
-              onChange={(e) => setInput({ ...input, email: e.target.value })}
+              value={userInput.email}
+              onChange={(e) => setUserInput({ ...userInput, email: e.target.value })}
               onBlur={() => {
                 checkRequired();
-                setError({ ...error, email: !isValidEmail(input.email) });
+                setError({ ...error, email: !isValidEmail(userInput.email) });
               }}
             />
             {error.email &&
@@ -110,19 +103,15 @@ function ContactWithCaptcha() {
             <label className="text-base">Your Message: </label>
             <textarea
               className="bg-[#10172d] w-full border rounded-md border-[#353a52] focus:border-[#16f2b3] ring-0 outline-0 transition-all duration-300 px-3 py-2"
-              maxLength="500"
+              maxLength={500}
               name="message"
               required={true}
-              onChange={(e) => setInput({ ...input, message: e.target.value })}
+              onChange={(e) => setUserInput({ ...userInput, message: e.target.value })}
               onBlur={checkRequired}
-              rows="4"
-              value={input.message}
+              rows={4}
+              value={userInput.message}
             />
           </div>
-          <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-            onChange={(code) => setCaptcha(code)}
-          />
           <div className="flex flex-col items-center gap-2">
             {error.required &&
               <p className="text-sm text-red-400">
@@ -144,4 +133,4 @@ function ContactWithCaptcha() {
   );
 };
 
-export default ContactWithCaptcha;
+export default ContactWithoutCaptcha;
