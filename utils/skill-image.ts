@@ -88,7 +88,7 @@ import laravel from '/public/svg/skills/laravel.svg';
 
 
 
-export const skillsImage = (skill) => {
+export const skillsImage = (skill : any) => {
   const skillID = skill.toLowerCase();
   switch (skillID) {
     case 'gcp':
@@ -255,10 +255,6 @@ export const skillsImage = (skill) => {
       return nest;
     case 'asp':
       return asp;
-    case 'cypress':
-      return cypress;
-    case 'ghost':
-      return ghost;
     case 'shopify':
       return shopify;
     case 'magento':

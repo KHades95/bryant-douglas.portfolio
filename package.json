@@ -24,17 +24,18 @@
     "react-fast-marquee": "^1.6.2",
     "react-google-recaptcha": "^3.1.0",
     "react-icons": "^4.11.0",
-    "react-lottie": "^1.2.4",
     "react-toastify": "^10.0.4",
     "resend": "^3.5.0"
   },
   "devDependencies": {
     "@types/node": "22.3.0",
     "@types/react": "18.3.3",
+    "@types/react-lottie": "^1.2.10",
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
+    "react-lottie": "^1.2.4",
     "sass": "^1.69.5",
     "tailwindcss": "latest",
     "typescript": "^5"
