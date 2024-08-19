@@ -7,8 +7,11 @@ import uspigletinebedImage from '@/public/png/project/shopify/us.pigletinebed.co
 import ussympliImage from '@/public/png/project/shopify/us.sympli.com.png';
 import havenservicingImage from '@/public/png/project/wordpress/havenservicing.png';
 import nxtideImage from '@/public/png/project/wordpress/nxtide.com.png';
-
-
+import configuratorImage from '@/public/png/project/nextjs/configurator.geodhuis.nl.png';
+import forwardImage from '@/public/png/project/nextjs/forward.digital.png';
+import leraImage from '@/public/png/project/nextjs/lera.business.png';
+import numero8Image from '@/public/png/project/nextjs/numero8.jp.png';
+import photoEffectImage from '@/public/png/project/webgl/photoeffect.png';
 
 export const projects = {
     shopify : [
@@ -87,7 +90,7 @@ export const projects = {
             image: havenservicingImage.src,
         },
         {
-            id: 1,
+            id: 2,
             name: 'NXTIDE',
             description: "",
             role: 'Frontend Developer',
@@ -97,9 +100,54 @@ export const projects = {
         }
     ],
     nextjs: [
+        {
+            id: 1,
+            name: 'Kies ander model',
+            description: "",
+            role: 'Frontend Developer',
+            url: 'configurator.geodhuis.nl',
+            demo: '',
+            image: configuratorImage.src,
+        },
+        {
+            id: 2,
+            name: 'FORWARD',
+            description: "",
+            role: 'Frontend Developer',
+            url: 'forward.digital',
+            demo: '',
+            image: forwardImage.src,
+        },
+        {
+            id: 3,
+            name: 'lera',
+            description: "",
+            role: 'Frontend Developer',
+            url: 'lera.business',
+            demo: '',
+            image: leraImage.src,
+        },
+        {
+            id: 4,
+            name: 'Numero8',
+            description: "",
+            role: 'Frontend Developer',
+            url: 'numero8.jp',
+            demo: '',
+            image: numero8Image.src,
+        }
 
     ],
     webgl: [
+        {
+            id: 1,
+            name: 'PhotoEffect',
+            description: "",
+            role: 'Frontend Developer',
+            url: '#',
+            demo: '',
+            image: photoEffectImage.src,
+        }
 
     ],
 };
