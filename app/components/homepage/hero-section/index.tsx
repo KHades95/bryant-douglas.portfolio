@@ -90,7 +90,7 @@ function HeroSection() {
             src={personalData.profile}
             width={280}
             height={280}
-            alt="Bryant Douglas"
+            alt="Bryant Portillo"
             className="rounded-lg transition-all duration-1000 grayscale hover:grayscale-0 hover:scale-110 cursor-pointer"
           />
         </motion.div>
